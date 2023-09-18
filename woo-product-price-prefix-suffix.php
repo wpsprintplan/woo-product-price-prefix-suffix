@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: WooCommerce Product Price Prefix Suffix
+Plugin Name: Woo Product Price Prefix Suffix
 Description: Add prefixes and suffixes to WooCommerce product prices.
 Version: 1.0
 Author: Jyoti
@@ -9,8 +9,8 @@ Author: Jyoti
 add_action('admin_menu' , 'wp_add_prefix_suffix');
 function wp_add_prefix_suffix(){
 	add_menu_page(
-		'WPPPS',
-		'wppps',
+		'Price Prefix & Suffix',
+		'price-prifix&suffix',
 		'manage_options',
 		'wppps',
 		'wppps_callback',
