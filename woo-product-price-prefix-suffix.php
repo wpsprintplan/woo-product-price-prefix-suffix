@@ -6,26 +6,28 @@ Version: 1.0
 Author: Jyoti
 */
 
-add_action('admin_menu' , 'wp_add_prefix_suffix');
-function wp_add_prefix_suffix(){
-	add_menu_page(
-		'Price Prefix & Suffix',
-		'price-prifix&suffix',
-		'manage_options',
-		'wppps',
-		'wppps_callback',
-		'dashicons-plugins-checked',
+add_action('admin_menu' , 'wppps_add_prefix_suffix');
+function wppps_add_prefix_suffix(){
+    add_menu_page(
+        'Price Prefix & Suffix',
+        'Price Prefix & Suffix',
+        'manage_options',
+        'wpps',
+        'wppps_callback',
+        'dashicons-plugins-checked',
 
-	);
+    );
 
 }
 
 // Store the custom prefix and suffix in WordPress options
 function wppps_callback(){
+        // Initialize a variable for the confirmation message.
     $confirmation_message = '';
 
+    // Check if the form has been submitted.
     if (isset($_POST['submit'])) {
-        // Get the values from the form fields
+        // Get the values from the form fields and sanitize them.
         $prefix = sanitize_text_field($_POST['prefix']);
         $suffix = sanitize_text_field($_POST['suffix']);
         
@@ -50,31 +52,39 @@ function wppps_callback(){
             </div>
         <?php endif; ?>
 
-        <form method="post">
-            <table>
-                <tr>
-                    <td><label for="prefix">Prefix:</label></td>
-                    <td><input type="text" id="prefix" name="prefix" value="<?php echo esc_attr($custom_prefix); ?>"></td>
+        <h2>Custom Price Prefix and Suffix</h2>
+                <form method="post">
+        <table class="form-table">
+                <tbody><tr>
+                    <th scope="row"><label for="prefix">Prefix:</label></th>
+                    <td><input type="text" id="prefix" name="prefix" value="wp_woocommerce" class="regular-text"></td>
                 </tr>
                 <tr>
-                    <td><label for="suffix">Suffix:</label></td>
-                    <td><input type="text" id="suffix" name="suffix" value="<?php echo esc_attr($custom_suffix); ?>"></td>
+                    <th scope="row"><label for="suffix">Suffix:</label></th>
+                    <td><input type="text" id="suffix" name="suffix" value="two" class="regular-text"></td>
                 </tr>
-                <tr>
-                    <td colspan="2"><input type="submit" name="submit" value="Submit"></td>
-                </tr>
-            </table>
+            </tbody></table>
+            <p class="submit"><input type="submit" name="submit" value="Save Changes" class="button-primary"></p>
         </form>
     </div>
+
+    <!-- <style>
+        .form-table th {
+            width: 150px;
+            text-align: right;
+        }
+        .form-table td {
+            padding-left: 20px;
+        }
+    </style> -->
     <?php
 }
 
-
 // Modify WooCommerce prices using the stored prefix and suffix
-add_filter('woocommerce_get_price_suffix', 'geekerhub_add_price_suffix', 99, 4);
-add_filter('woocommerce_get_price_html', 'geekerhub_add_price_prefix', 99, 2);
+add_filter('woocommerce_get_price_suffix', 'wppps_add_price_suffix', 99, 4);
+add_filter('woocommerce_get_price_html', 'wppps_add_price_prefix', 99, 2);
 
-function geekerhub_add_price_suffix($html, $product, $price, $qty) {
+function wppps_add_price_suffix($html, $product, $price, $qty) {
     // Retrieve the custom suffix from options
     $custom_suffix = get_option('custom_price_suffix', '');
     
@@ -84,7 +94,7 @@ function geekerhub_add_price_suffix($html, $product, $price, $qty) {
     return $html;
 }
 
-function geekerhub_add_price_prefix($price, $product) {
+function wppps_add_price_prefix($price, $product) {
     // Retrieve the custom prefix from options
     $custom_prefix = get_option('custom_price_prefix', '');
     
