@@ -47,7 +47,7 @@ function wppps_callback(){
     ?>
     <div class="wrap">
         <?php if (!empty($confirmation_message)) : ?>
-            <div class="notice notice-success is-dismissible">
+            <div class="updated notice">
                 <p><?php echo esc_html($confirmation_message); ?></p>
             </div>
         <?php endif; ?>
@@ -68,17 +68,58 @@ function wppps_callback(){
         </form>
     </div>
 
-    <!-- <style>
+     <style>
+        
+        .wrap {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-top: 50px;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
         .form-table th {
-            width: 150px;
             text-align: right;
+            width: 120px;
+
         }
+
         .form-table td {
-            padding-left: 20px;
+            padding-left: 10px;
         }
-    </style> -->
+
+        input.regular-text {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .button-primary {
+            background-color: #0073aa;
+            color: #fff;
+            border-color: #0073aa;
+            padding: 10px 20px;
+            font-size: 16px;
+
+
+        }
+
+    </style> 
     <?php
 }
+
+
+
+
+
 
 // Modify WooCommerce prices using the stored prefix and suffix
 add_filter('woocommerce_get_price_suffix', 'wppps_add_price_suffix', 99, 4);
