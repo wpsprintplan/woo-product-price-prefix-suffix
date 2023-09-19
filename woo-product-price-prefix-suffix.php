@@ -43,34 +43,14 @@ function wppps_callback(){
     $custom_prefix = get_option('custom_price_prefix', '');
     $custom_suffix = get_option('custom_price_suffix', '');
     
+
+
     // Output the form with the stored values and confirmation message
     ?>
-    <div class="wrap">
-        <?php if (!empty($confirmation_message)) : ?>
-            <div class="updated notice">
-                <p><?php echo esc_html($confirmation_message); ?></p>
-            </div>
-        <?php endif; ?>
 
-        <h2>Custom Price Prefix and Suffix</h2>
-                <form method="post">
-        <table class="form-table">
-                <tbody><tr>
-                    <th scope="row"><label for="prefix">Prefix:</label></th>
-                    <td><input type="text" id="prefix" name="prefix" value="wp_woocommerce" class="regular-text"></td>
-                </tr>
-                <tr>
-                    <th scope="row"><label for="suffix">Suffix:</label></th>
-                    <td><input type="text" id="suffix" name="suffix" value="two" class="regular-text"></td>
-                </tr>
-            </tbody></table>
-            <p class="submit"><input type="submit" name="submit" value="Save Changes" class="button-primary"></p>
-        </form>
-    </div>
+    <style>
 
-     <style>
-        
-        .wrap {
+        .wppps-container {
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
@@ -113,12 +93,32 @@ function wppps_callback(){
         }
 
     </style> 
-    <?php
+  <?php if (!empty($confirmation_message)) : ?>
+            <div class="updated notice">
+                <p><?php echo esc_html($confirmation_message); ?></p>
+            </div>
+        <?php endif; ?>
+
+    <div class="wppps-container">
+        <h2>Custom Price Prefix and Suffix</h2>
+                <form method="post">
+        <table class="form-table">
+                <tbody><tr>
+                    <th scope="row"><label for="prefix">Prefix:</label></th>
+                    <td><input type="text" id="prefix" name="prefix" value="wp_woocommerce" class="regular-text"></td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="suffix">Suffix:</label></th>
+                    <td><input type="text" id="suffix" name="suffix" value="two" class="regular-text"></td>
+                </tr>
+            </tbody></table>
+            <p class="submit" style="text-align: center;">
+                <input type="submit" name="submit" value="Save Changes" class="button-primary"></p>
+        </form>
+    </div>
+
+  <?php
 }
-
-
-
-
 
 
 // Modify WooCommerce prices using the stored prefix and suffix
